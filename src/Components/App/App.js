@@ -6,9 +6,9 @@ class App extends React.Component {
         super(props);
         this.state = {
             searchResults: [
-                {name: '', artist: '', album: '', id: ''},
-                {name: '', artist: '', album: '', id: ''},
-                {name: '', artist: '', album: '', id: ''}]
+                {name: 'Ray', artist: 'Allen', album: 'sky', id: '132'},
+                {name: 'Wei', artist: 'Paul', album: 'shine', id: '555'},
+                {name: 'Fei', artist: 'Alex', album: 'Rose', id: '604'}]
         }
     }
     render() {
@@ -18,7 +18,7 @@ class App extends React.Component {
                 <div className="App">
                     {/*<SearchBar />*/}
                     <div className="App-playlist">
-                        <SearchResults searchResults = {this.props.searchResults}/>
+                        <SearchResults searchResults = {this.state.searchResults}/>
                         {/*<Playlist />*/}
                     </div>
                 </div>
