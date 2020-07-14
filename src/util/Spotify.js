@@ -38,12 +38,12 @@ const Spotify = {
             return jsonResponse.tracks.items.map(track => ({
                 id: track.id,
                 name: track.name,
+                //album: track.album,
                 artist: track.artists[0].name,
                 uri: track.uri
             }));
         })
     },
-    /*
     savePlaylist(playlistName, trackURIs) {
         if (playlistName && trackURIs.length) {
             const accessToken = Spotify.getAccessToken();
@@ -71,8 +71,6 @@ const Spotify = {
             })
         }
     }
-
-     */
 };
 
 export default Spotify;

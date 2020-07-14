@@ -10,10 +10,7 @@ class App extends React.Component {
         this.state = {
             searchResults: [],
             playlistName: 'Number One Play List',
-            playlistTracks: [
-                {name: '贝多芬', artist: 'Beethoven', album: 'Piano Sonata No. 14', id:'091'},
-                {name: '莫扎特', artist: 'Mozart', album: 'Twelve Variations on Ah vous dirai-je, Maman', id:'847'},
-                {name: 'Jay', artist: 'Chou', album: 'November', id: '138'}]
+            playlistTracks: []
         }
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
@@ -23,9 +20,10 @@ class App extends React.Component {
     }
     addTrack(track) {
         let tracks = this.state.playlistTracks;
-        if (tracks.find(savedTrack => savedTrack.id !== track.id)) {
+        if (tracks.every(savedTrack => savedTrack.id !== track.id)) {
             tracks.push(track);
             this.setState({playlistTracks: tracks});
+            console.log('call');
         }
     }
     removeTrack(track) {
