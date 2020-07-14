@@ -1,5 +1,5 @@
 let accessToken;
-const clientID = '';
+const clientID = "f0458ed199364634b85093cd02991b8a";
 const rediretURI = "http://localhost:3000/";
 const Spotify = {
     getAccessToken() {
@@ -20,21 +20,21 @@ const Spotify = {
             return accessToken;
         } else { // accessToken empty and not in URI
             // redirect users to the following URL
-            const URL =
-                `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${rediretURI}`;
-            window.location(URL);
+            const URL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${rediretURI}`;
+            window.location = URL;
         }
     },
     search(term) {
         const accessToken = Spotify.getAccessToken();
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
-            headers: {Authorization: `Bear ${accessToken}`}
+            headers: {Authorization: `Bearer ${accessToken}`}
         }).then(response => {
             return response.json();
         }).then(jsonResponse => {
-            if (!jsonResponse.track) {
+            if (!jsonResponse.tracks) {
                 return [];
             }
+            console.log('revoked 3');
             return jsonResponse.tracks.items.map(track => ({
                 id: track.id,
                 name: track.name,
@@ -42,7 +42,37 @@ const Spotify = {
                 uri: track.uri
             }));
         })
+    },
+    /*
+    savePlaylist(playlistName, trackURIs) {
+        if (playlistName && trackURIs.length) {
+            const accessToken = Spotify.getAccessToken();
+            const headers = {Authorization:`Bear ${accessToken}`};
+            let userID;
+            return fetch('https://api.spotify.com/v1/me\n', {headers: headers}
+            ).then(response => response.json()
+            ).then(jsonResponse => {
+                userID = jsonResponse.id;
+                return fetch(`/v1/users/${userID}/playlists`,
+                    {
+                        headers: headers,
+                        method: 'POST',
+                        body: JSON.stringify({name: playlistName})
+                        }).then(response => response.json()
+                        ).then(jsonResponse => {
+                            const playlistID = jsonResponse.id;
+                            return fetch(`/v1/users/${userID}/playlists/${playlistID}/tracks`,
+                                {
+                                    headers: headers,
+                                    method: 'POST',
+                                    body: JSON.stringify({uris: trackURIs})
+                                })
+                })
+            })
+        }
     }
+
+     */
 };
 
 export default Spotify;
