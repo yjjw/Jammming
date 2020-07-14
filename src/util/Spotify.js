@@ -45,30 +45,33 @@ const Spotify = {
         })
     },
     savePlaylist(playlistName, trackURIs) {
-        if (playlistName && trackURIs.length) {
+        if (playlistName && trackURIs) {
             const accessToken = Spotify.getAccessToken();
-            const headers = {Authorization:`Bear ${accessToken}`};
+            const headers = {Authorization:`Bearer ${accessToken}`};
             let userID;
-            return fetch('https://api.spotify.com/v1/me\n', {headers: headers}
-            ).then(response => response.json()
+            return fetch('https://api.spotify.com/v1/me', {headers: headers}
+            ).then(response =>  {return response.json()}
             ).then(jsonResponse => {
                 userID = jsonResponse.id;
-                return fetch(`/v1/users/${userID}/playlists`,
+                console.log(`user id is ${userID}`);
+                return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`,
                     {
                         headers: headers,
                         method: 'POST',
                         body: JSON.stringify({name: playlistName})
-                        }).then(response => response.json()
+                        }).then(response => {return response.json()}
                         ).then(jsonResponse => {
                             const playlistID = jsonResponse.id;
-                            return fetch(`/v1/users/${userID}/playlists/${playlistID}/tracks`,
+                            console.log(`playlist id is ${playlistID}`);
+                            console.log('caught');
+                            return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
                                 {
                                     headers: headers,
                                     method: 'POST',
                                     body: JSON.stringify({uris: trackURIs})
-                                })
-                })
-            })
+                                });
+                });
+            });
         }
     }
 };
