@@ -34,12 +34,12 @@ const Spotify = {
             if (!jsonResponse.tracks) {
                 return [];
             }
-            console.log('revoked 3');
+            //console.log('revoked 3');
             return jsonResponse.tracks.items.map(track => ({
                 id: track.id,
                 name: track.name,
-                //album: track.album,
                 artist: track.artists[0].name,
+                album: track.album.name,
                 uri: track.uri
             }));
         })
