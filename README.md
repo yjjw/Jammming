@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). <br />
+Users can search for songs on this web application, create their own playlist and save to their Spotify account <br />
 ## Demo
-![demo of using the app](Demo/Demo.gif) <br />
+![demo of using the app](Demo/newDemo.gif) <br />
 
 ## Available Scripts
 
